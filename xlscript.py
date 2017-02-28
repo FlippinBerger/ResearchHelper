@@ -2,6 +2,7 @@ import sys
 from openpyxl import load_workbook
 from openpyxl import Workbook
 
+#list of cols that correspond to weekdays in xl sheet
 weekday_col_list = [
 'L', 'N', 'P', 'R', 'T', 'V', 'X', 'Z', 'AD', 'AF','AH', 'AJ','AL','AN', 'AP', 'AR', 'AW', 
 'AY', 'BA', 'BC', 'BE', 'BG', 'BI', 'BK', 'BN', 'BP', 'BR', 'BT', 'BV', 'BX','BZ', 'CB', 'CD', 
@@ -10,6 +11,7 @@ weekday_col_list = [
 'DO', 'DQ', 'DS', 'DU', 'DW', 'DY', 'EA','EF', 
 'EH', 'EJ', 'EL', 'EN', 'EP', 'ER', 'ET']
 
+#list of cols that correspond to weekends in xl sheet
 weekend_col_list = [
 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Y', 'AD', 'AF', 'AH', 'AJ', 'AL', 'AN',
 'AP', 'AR', 'AU', 'AW', 'AY', 'BA', 'BC', 'BE', 'BG', 'BI', 'BK', 'BM', 'BO',
@@ -17,8 +19,8 @@ weekend_col_list = [
 'CT', 'CV', 'CX', 'CZ', 'DB', 'DD', 'DF', 'DH', 'DM', 'DO', 'DQ', 'DS', 'DU',
 'DW', 'DY', 'EA']
 
-avg_di
-
+#dict used to map average values 
+avg_dict = {
 '5-15 min': 10,
 '15-30 min': 22.5,
 '30-45 min': 37.5,
@@ -31,6 +33,7 @@ avg_di
 '3+ h': 180
 }
 
+#helper to manage off by ones while going through the cols
 def subCol(col_str):
 	if len(col_str) == 1 and col_str != 'A':
 		return chr(ord(col_str) - 1)
@@ -42,6 +45,7 @@ def subCol(col_str):
 			last = chr(ord(col_str[-1]) - 1)
 			return col_str[0] + last
 
+#helper to get the number of the column that you're on
 def getColNum(col_str):
 	if len(col_str) == 1:
 		return (ord(col_str) % ord('A')) + 1
